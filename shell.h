@@ -14,6 +14,6 @@
 
 extern char **environ;
 
-char **_read(char *str);
+char **str_to_arr(char *str);
 
 #endif /* SHELL_H */

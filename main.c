@@ -4,6 +4,8 @@
  * main - Entry point
  *
  * Description: Simple shell project
+ *
+ * Return: Always 0
  */
 int main(void)
 {
@@ -20,12 +22,7 @@ int main(void)
 		res = getline(&str, &num, stdin);
 		if (res == -1)
 			break;
-		argv = _read(str);
-		while (*environ != NULL)
-		{
-			printf("%s\n", *environ);
-			environ++;
-		}
+		argv = str_to_arr(str);
 		res = stat(argv[0], &st);
 		if (res == 0)
 		{

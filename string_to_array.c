@@ -16,11 +16,12 @@ size_t _strlen(char *str)
 }
 
 /**
- * str_to_words - This function splits a string int words
+ * str_to_arr - This function converts a string int an array of strings
+ * @str: String to convert
  *
  * Return: Pointer to the array of words
  */
-char **_read(char *str)
+char **str_to_arr(char *str)
 {
 	char **arrStr;
 	int i, len = 0;
