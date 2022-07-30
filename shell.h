@@ -28,6 +28,7 @@ typedef struct path_s
 
 extern char **environ;
 
+int _putchar(char c);
 
 int _printf(const char *format, ...);
 
@@ -45,10 +46,18 @@ char *_strcat(char *dest, char *src);
 
 char *_strcpy(char *dest, char *src);
 
-char  *path_finder(char **argv, path_t *path_list);
+char  *path_finder(char **argv, path_t *path_list, char *str);
 
 char *get_node(path_t *path_list, char *cmd);
 
+int _strcmp(char *s1, char *s2);
+
 char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
+
+void free_ac(char *cmd, char **argv);
+
+void free_sl(char *str, path_t *path_list);
+
+void __exit(char *cmd, char **argv, char *str, path_t *path_list);
 
 #endif /* SHELL_H */

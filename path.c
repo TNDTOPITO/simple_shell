@@ -45,17 +45,21 @@ path_t *path(void)
  * path_finder - This function checks if the command exists
  * @argv: Array of string with the command and arguments
  * @path_list: Linked list
+ * @str: str
  *
  * Return: 0 on success, -1 on failure
  */
-char *path_finder(char **argv, path_t *path_list)
+char *path_finder(char **argv, path_t *path_list, char *str)
 {
 	char *path;
-	char *cmd;
+	char *cmd = NULL;
 	struct stat st;
 
 	if (argv[0] == NULL)
 		return (NULL);
+
+	if (_strcmp(argv[0], "exit"))
+		__exit(cmd, argv, str, path_list);
 
 	if (argv[0][0] != '/')
 	{

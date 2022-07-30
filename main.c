@@ -24,7 +24,7 @@ int main(void)
 		if (res == -1)
 			break;
 		argv = str_to_arr(str);
-		cmd = path_finder(argv, path_list);
+		cmd = path_finder(argv, path_list, str);
 		if (cmd != NULL)
 		{
 			pro = fork();
@@ -35,11 +35,8 @@ int main(void)
 		}
 		else if (argv[0] != NULL)
 			_printf("%s: Command not found\n", argv[0]);
-		free(cmd);
-		free(argv);
+		free_ac(cmd, argv);
 	}
-	_printf("\n");
-	free(str);
-	free_list(path_list);
+	free_sl(str, path_list);
 	return (0);
 }

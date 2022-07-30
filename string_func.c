@@ -1,6 +1,26 @@
 #include "shell.h"
 
 /**
+ * _strcmp - This function compares two strings
+ * @s1: 1st string to compare
+ * @s2: 2nd string to compare
+ *
+ * Return: 1 if match, 0 i doesn't match
+ */
+int _strcmp(char *s1, char *s2)
+{
+	int index = 0;
+
+	while (s1[index] && s2[index])
+	{
+		if (s1[index] != s2[index])
+			return (0);
+		index++;
+	}
+	return (1);
+}
+
+/**
  * _realloc - function that reallocates a memory
  * @ptr: memory to resize
  * @old_size: old size of the array

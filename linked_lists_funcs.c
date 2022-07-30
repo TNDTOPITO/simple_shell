@@ -1,24 +1,6 @@
 #include "shell.h"
 
 /**
- * free_list - This function frees memory of a linked list
- * @head: Address of list to free
- *
- */
-void free_list(path_t *head)
-{
-	path_t *h;
-
-	while (head)
-	{
-		h = head->next;
-		free(head->path);
-		free(head);
-		head = h;
-	}
-}
-
-/**
  * add_node - This function adds a new node at the beginning of a linked list
  * @head: Address of linked list
  * @str: String to add
