@@ -12,42 +12,52 @@
 #include <time.h>
 #include <stdbool.h>
 
-/* environment variables */
+/**
+ * struct path_s - singly linked list
+ * @path: Path to directory
+ * @next: Pointer to the next node
+ *
+ * Description - This struct contains all of the directories in the PATH
+(* variable
+ */
+typedef struct path_s
+{
+	char *path;
+	struct path_s *next;
+} path_t;
+
 extern char **environ;
-extern __sighandler_t signal(int __sig, __sighandler_t __handler);
 
-/* handle built ins */
-void prompt_user(void);
-void handle_signal(int m);
-char **tokenizer(char *line);
-char *test_path(char **path, char *command);
-char *append_path(char *path, char *command);
-int handle_builtin(char **command, char *line);
-void exit_cmd(char **command, char *line);
+int _putchar(char c);
 
-void print_env(void);
+int _printf(const char *format, ...);
 
-void execution(char *cp, char **cmd);
-char *find_path(void);
+char **str_to_arr(char *str);
 
-/* helper function for efficient free */
-void free_buffers(char **buf);
+path_t *path(void);
 
-struct builtin
-{
-	char *env;
-	char *exit;
-} builtin;
+path_t *creat_list(char *path);
 
-struct info
-{
-	int final_exit;
-	int ln_count;
-} info;
+void free_list(path_t *head);
 
-struct flags
-{
-	bool interactive;
-} flags;
+size_t _strlen(char *str);
+
+char *_strcat(char *dest, char *src);
+
+char *_strcpy(char *dest, char *src);
+
+char  *path_finder(char **argv, path_t *path_list, char *str);
+
+char *get_node(path_t *path_list, char *cmd);
+
+int _strcmp(char *s1, char *s2);
+
+char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
+
+void free_ac(char *cmd, char **argv);
+
+void free_sl(char *str, path_t *path_list);
+
+void __exit(char *cmd, char **argv, char *str, path_t *path_list);
 
 #endif /* SHELL_H */
