@@ -57,10 +57,8 @@ char *path_finder(char **argv, path_t *path_list, char *str)
 
 	if (argv[0] == NULL)
 		return (NULL);
-
 	if (_strcmp(argv[0], "exit"))
 		__exit(cmd, argv, str, path_list);
-
 	if (argv[0][0] != '/')
 	{
 		cmd = argv[0];

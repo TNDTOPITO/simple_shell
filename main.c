@@ -20,7 +20,7 @@ int main(void)
 	while (1)
 	{
 		_printf("$ ");
-		res = getline(&str, &num, stdin);
+		res = _getline(&str, &num, stdin);
 		if (res == -1)
 			break;
 		argv = str_to_arr(str);

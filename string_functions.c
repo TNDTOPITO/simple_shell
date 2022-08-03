@@ -38,6 +38,8 @@ char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size)
 	if (ptr == NULL)
 	{
 		tempArr = malloc(new_size);
+		if (!tempArr)
+			return (NULL);
 		return (tempArr);
 	}
 	if (new_size == 0 && ptr != NULL)
@@ -46,6 +48,8 @@ char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size)
 		return (NULL);
 	}
 	tempArr = malloc(new_size);
+	if (!tempArr)
+		return (NULL);
 	if (new_size > old_size)
 	{
 		for (i = 0; i < old_size; i++)

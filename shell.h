@@ -26,6 +26,18 @@ typedef struct path_s
 	struct path_s *next;
 } path_t;
 
+/**
+ * arguments - Arguments
+ *
+ * @c: Character
+ * @f: Function associated
+ */
+typedef struct arguments
+{
+	char c;
+	void (*f)();
+} argu_t;
+
 extern char **environ;
 
 int _putchar(char c);
@@ -59,5 +71,7 @@ void free_ac(char *cmd, char **argv);
 void free_sl(char *str, path_t *path_list);
 
 void __exit(char *cmd, char **argv, char *str, path_t *path_list);
+
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 #endif /* SHELL_H */
