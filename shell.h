@@ -74,4 +74,6 @@ void __exit(char *cmd, char **argv, char *str, path_t *path_list);
 
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
+char *_strtok(char *str, const char *delim);
+
 #endif /* SHELL_H */

@@ -20,11 +20,11 @@ char **str_to_arr(char *str)
 	arrStr = malloc(sizeof(char *) * len + 1);
 	if (arrStr == NULL)
 		return (NULL);
-	token = strtok(str, delim);
+	token = _strtok(str, delim);
 	for (i = 0; token != NULL; i++)
 	{
 		arrStr[i] = token;
-		token = strtok(NULL, delim);
+		token = _strtok(NULL, delim);
 	}
 	arrStr[i] = token;
 	return (arrStr);
