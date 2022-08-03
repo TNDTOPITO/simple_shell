@@ -10,8 +10,8 @@
  */
 char *_strtok(char *str, const char *delim)
 {
-	static char *tokn = NULL;
-	
+	static char *tokn;
+
 	if (str == NULL)
 	{
 		str = tokn;

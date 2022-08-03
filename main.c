@@ -33,7 +33,7 @@ int main(void)
 			else
 				wait(NULL);
 		}
-		else if (argv[0] != NULL)
+		else if (argv[0] != NULL && !(_strcmp(argv[0], "exit")))
 			_printf("%s: Command not found\n", argv[0]);
 		free_ac(cmd, argv);
 	}

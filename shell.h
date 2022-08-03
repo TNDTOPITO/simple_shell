@@ -26,18 +26,6 @@ typedef struct path_s
 	struct path_s *next;
 } path_t;
 
-/**
- * arguments - Arguments
- *
- * @c: Character
- * @f: Function associated
- */
-typedef struct arguments
-{
-	char c;
-	void (*f)();
-} argu_t;
-
 extern char **environ;
 
 int _putchar(char c);
