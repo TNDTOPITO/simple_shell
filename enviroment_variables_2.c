@@ -63,8 +63,5 @@ void modify_var(char **argv, int i)
 	var = _strcat(var, argv[1]);
 	var = _strcat(var, "=");
 	var = _strcat(var, argv[2]);
-	printf("var: %s\n", var);
-	printf("argv[1]: %s\n", argv[1]);
 	enviroment[i] = var;
-	printf("%s\n", enviroment[i]);
 }

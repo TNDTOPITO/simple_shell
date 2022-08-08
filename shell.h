@@ -80,4 +80,6 @@ void modify_var(char **argv, int i);
 
 void _unsetenv(char **argv);
 
+void cd(char **argv);
+
 #endif /* SHELL_H */

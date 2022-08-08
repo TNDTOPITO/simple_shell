@@ -81,6 +81,11 @@ int builtin_functions(char **argv)
 		print_env();
 		return (1);
 	}
+	if (_strcmp(argv[0], "cd"))
+	{
+		cd(argv);
+		return (1);
+	}
 	return (0);
 }
 
