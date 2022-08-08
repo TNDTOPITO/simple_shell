@@ -37,9 +37,16 @@ void free_ac(char *cmd, char **argv)
  */
 void free_sl(char *str, path_t *path_list)
 {
-	free(str);
+	int i;
+
+	for (i = 0; enviroment[i]; i++)
+	{
+		free(enviroment[i]);
+	}
+	free(enviroment);
+	if (str)
+		free(str);
 	free_list(path_list);
-	_putchar('\n');
 }
 
 /**
@@ -82,9 +89,7 @@ void __exit(char *cmd, char **argv, char *str, path_t *path_list)
 		_printf("sh: 1: exit: Illegal number: %s\n", argv[1]);
 		return;
 	}
-	free(cmd);
-	free(argv);
-	free(str);
-	free_list(path_list);
+	free_ac(cmd, argv);
+	free_sl(str, path_list);
 	exit(status);
 }

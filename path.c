@@ -1,20 +1,17 @@
 #include "shell.h"
 
 /**
- * path - This function stores directories in the path variable on linked list
+ * find_var - This function searches for an environment variable
+ * @var_name: Name of the variable to search for
  *
- * Return: The address of the head
+ * Return: Index on match, -1 if no match was found
  */
-path_t *path(void)
+int find_var(char *var_name)
 {
-	char **env = environ;
-	size_t i;
-	size_t y = 0;
-	char *var_name = "PATH", *path;
-	size_t match = 0;
-	path_t *head;
+	char **env = enviroment;
+	int i, y = 0, match;
 
-	for (i = 0; env[i] != NULL; i++)
+	for (i = 0; env[i]; i++)
 	{
 		while (env[i][y] != '=')
 		{
@@ -28,17 +25,63 @@ path_t *path(void)
 			y++;
 		}
 		if (match)
-		{
-			path = env[i];
-			break;
-		}
+			return (i);
 		y = 0;
 	}
+	return (-1);
+}
+
+/**
+ * path - This function stores directories in the path variable on linked list
+ *
+ * Return: The address of the head
+ */
+path_t *path(void)
+{
+	char **env = environ;
+	char *path;
+	int i;
+	path_t *head;
+
+	i = find_var("PATH");
+	if (i == -1)
+	{
+		perror("PATH enviroment variable not found");
+		exit(98);
+	}
+	path = env[i];
 	while (*path != '=')
 		path++;
 	path++;
 	head = creat_list(path);
 	return (head);
+}
+
+/**
+ * builtin_functions - This function handles the shell builtin functions
+ * @argv: Arguments
+ *
+ * Return: 0 if builtin function is found, 1 if it's not found
+ */
+int builtin_functions(char **argv)
+{
+
+	if (_strcmp(argv[0], "setenv"))
+	{
+		_setenv(argv);
+		return (1);
+	}
+	if (_strcmp(argv[0], "unsetenv"))
+	{
+		_unsetenv(argv);
+		return (1);
+	}
+	if (_strcmp(argv[0], "env"))
+	{
+		print_env();
+		return (1);
+	}
+	return (0);
 }
 
 /**
@@ -62,6 +105,8 @@ char *path_finder(char **argv, path_t *path_list, char *str)
 		__exit(cmd, argv, str, path_list);
 		return (NULL);
 	}
+	if (builtin_functions(argv))
+		return (NULL);
 	if (argv[0][0] != '/')
 	{
 		cmd = argv[0];

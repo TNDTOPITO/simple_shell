@@ -16,13 +16,17 @@ int main(void)
 	size_t num = 0;
 	path_t *path_list;
 
+	cpyEnviron();
 	path_list = path();
 	while (1)
 	{
-		_printf("$ ");
+		printf("$ ");
 		res = _getline(&str, &num, stdin);
 		if (res == -1)
+		{
+			_putchar('\n');
 			break;
+		}
 		argv = str_to_arr(str);
 		cmd = path_finder(argv, path_list, str);
 		if (cmd != NULL)

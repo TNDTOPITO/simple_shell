@@ -34,6 +34,5 @@ char *_strtok(char *str, const char *delim)
 	}
 	else
 		tokn = NULL;
-
 	return (str);
 }

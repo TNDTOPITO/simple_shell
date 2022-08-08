@@ -28,6 +28,8 @@ typedef struct path_s
 
 extern char **environ;
 
+char **enviroment;
+
 int _putchar(char c);
 
 int _printf(const char *format, ...);
@@ -63,5 +65,19 @@ void __exit(char *cmd, char **argv, char *str, path_t *path_list);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 char *_strtok(char *str, const char *delim);
+
+void cpyEnviron(void);
+
+void print_env(void);
+
+int find_var(char *var_name);
+
+void _setenv(char **argv);
+
+void creat_var(char **argv);
+
+void modify_var(char **argv, int i);
+
+void _unsetenv(char **argv);
 
 #endif /* SHELL_H */
