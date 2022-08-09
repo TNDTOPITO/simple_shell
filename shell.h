@@ -82,4 +82,14 @@ void _unsetenv(char **argv);
 
 void cd(char **argv);
 
+int check_builtin(char **argv);
+
+int execute(char *cmd, char **argv);
+
+int command_sep(path_t *path_list, char *str);
+
+int special_circ(path_t *path_list, char *str);
+
+char *_strtok1(char *str, const char *delim);
+
 #endif /* SHELL_H */

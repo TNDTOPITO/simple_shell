@@ -16,13 +16,13 @@ char *fnd_path(char *str)
 	i = find_var(str);
 	if (i == -1)
 		return (NULL);
-	path = malloc(sizeof(char) * _strlen(enviroment[i]));
+	path = malloc(sizeof(char) * (_strlen(enviroment[i]) + 2));
 	path = _strcpy(path, enviroment[i]);
 	temp = path;
 	for (i = 0; *path != '='; i++)
 		path++;
 	path++;
-	allpath = malloc(sizeof(char) * _strlen(path));
+	allpath = malloc(sizeof(char) * (_strlen(path) + 2));
 	allpath = _strcpy(allpath, path);
 	free(temp);
 	return (allpath);
@@ -38,10 +38,10 @@ void update_var(char *name, char *str)
 	char **pwd = NULL;
 	int i;
 
-	pwd = malloc(sizeof(char *) * 4);
+	pwd = malloc(sizeof(char *) * 5);
 	pwd[0] = malloc(sizeof(char) * 3);
-	pwd[1] = malloc(sizeof(char) * _strlen(name));
-	pwd[2] = malloc(sizeof(char) * _strlen(str));
+	pwd[1] = malloc(sizeof(char) * _strlen(name) + 2);
+	pwd[2] = malloc(sizeof(char) * _strlen(str) + 2);
 	pwd[0] = _strcpy(pwd[0], "cd");
 	pwd[1] = _strcpy(pwd[1], name);
 	pwd[2] = _strcpy(pwd[2], str);
@@ -72,7 +72,7 @@ void cd(char **argv)
 	}
 	else
 	{
-		path = malloc(sizeof(char) * _strlen(argv[1]));
+		path = malloc(sizeof(char) * _strlen(argv[1]) + 2);
 		path = _strcpy(path, argv[1]);
 	}
 	i = chdir(path);

@@ -90,6 +90,36 @@ int builtin_functions(char **argv)
 }
 
 /**
+ * str_to_arr - This function converts a string int an array of strings
+ * @str: String to convert
+ *
+ * Return: Pointer to the array of words
+ */
+char **str_to_arr(char *str)
+{
+	char **arrStr;
+	int i, len = 0;
+	char *token, *delim = " \t\n\0";
+
+	for (i = 0; str[i]; i++)
+	{
+		if (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\0')
+			len++;
+	}
+	arrStr = malloc(sizeof(char *) * (len + 1));
+	if (arrStr == NULL)
+		return (NULL);
+	token = _strtok(str, delim);
+	for (i = 0; token; i++)
+	{
+		arrStr[i] = token;
+		token = _strtok(NULL, delim);
+	}
+	arrStr[i] = token;
+	return (arrStr);
+}
+
+/**
  * path_finder - This function checks if the command exists
  * @argv: Array of string with the command and arguments
  * @path_list: Linked list

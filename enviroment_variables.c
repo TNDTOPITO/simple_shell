@@ -10,13 +10,13 @@ void cpyEnviron(void)
 
 	while (environ[i])
 		i++;
-	len = i;
+	len = i + 2;
 	enviroment = NULL;
 	enviroment = malloc(sizeof(char *) * len);
 	putchar('\0');
 	for (i = 0; environ[i]; i++)
 	{
-		len = _strlen(environ[i]);
+		len = _strlen(environ[i]) + 2;
 		enviroment[i] = malloc(sizeof(char) * len);
 		if (!enviroment)
 		{
@@ -91,7 +91,7 @@ void _unsetenv(char **argv)
 	index = find_var(argv[1]);
 	if (index == -1)
 	{
-		perror("name not found");
+		perror("name not found proof");
 		return;
 	}
 	free(enviroment[index]);
