@@ -23,7 +23,7 @@ int main(void)
 		signal(SIGINT, signal_handler);
 		if (isatty(STDIN_FILENO))
 			_printf("$ ");
-		res = _getline(&str, &num, stdin);
+		res = getline(&str, &num, stdin);
 		if (res == -1)
 		{
 			 if (isatty(STDIN_FILENO))

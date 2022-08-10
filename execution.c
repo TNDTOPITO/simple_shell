@@ -128,7 +128,7 @@ int command_sep(path_t *path_list, char *str)
 	if (cmd != NULL)
 		exit_status = execute(cmd, argv);
 	else if (argv[0] != NULL && !(check_builtin(argv)))
-		_printf("%s: command not found\n", argv[0]);
+		_printf("./hsh: No such file or directory\n", argv[0]);
 	free(cmd);
 	free(argv);
 
