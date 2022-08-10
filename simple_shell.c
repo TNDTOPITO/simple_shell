@@ -4,21 +4,21 @@
  * simple_shell - This function executes a commands from file
  * @str: Name of file
  */
-void simple_shell(char *str)
+void simple_shell(char *string)
 {
 	FILE *fp;
 	struct stat sb;
-	char **argv, *str = NULL;
+	char **argv, *str;
 	int res, execFlag, w_len;
 	size_t num = 0;
 
-	if (!str)
+	if (!string)
 		return;
-	if (stat(str, &sb) != 0)
+	if (stat(string, &sb) != 0)
 		return;
 	while (1)
 	{
-		fp = fopen(str, "r");
+		fp = fopen(string, "r");
 		if (fp == NULL)
 			return;
 		res = getline(&str, &num, fp);
