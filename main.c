@@ -20,7 +20,8 @@ int main(void)
 	path_list = path();
 	while (1)
 	{
-		printf("$ ");
+		if (isatty(fileno(stdin)))
+			printf("$ ");
 		res = _getline(&str, &num, stdin);
 		if (res == -1)
 		{
@@ -29,7 +30,6 @@ int main(void)
 		exit_status = special_circ(path_list, str);
 		if (exit_status == -5)
 		{
-			printf("here\n");
 			argv = str_to_arr(str);
 			cmd = path_finder(argv, path_list, str);
 			if (cmd != NULL)
