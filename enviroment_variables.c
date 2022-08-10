@@ -13,7 +13,6 @@ void cpyEnviron(void)
 	len = i + 2;
 	enviroment = NULL;
 	enviroment = malloc(sizeof(char *) * len);
-	putchar('\0');
 	for (i = 0; environ[i]; i++)
 	{
 		len = _strlen(environ[i]) + 2;

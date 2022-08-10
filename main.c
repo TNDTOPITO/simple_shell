@@ -21,10 +21,11 @@ int main(void)
 	while (1)
 	{
 		if (isatty(fileno(stdin)))
-			printf("$ ");
+			printf("#cisfun$ ");
 		res = _getline(&str, &num, stdin);
 		if (res == -1)
 		{
+			printf("#cisfun$ ");
 			break;
 		}
 		exit_status = special_circ(path_list, str);
