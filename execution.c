@@ -41,6 +41,41 @@ int or(char *str)
 }
 
 /**
+ * semi - This function handles the "&&" logical operator
+ * @str: String
+ *
+ * Return: exit code
+ */
+int semi(char *str)
+{
+	int code = 0, w_len, execFlag;
+	char *token;
+	char **argv;
+
+	token = _strtok1(str, ";\n");
+	while (token != NULL)
+	{
+		w_len = count_input(token);
+		if (token[0] != '\n' && w_len > 0)
+		{
+			argv = tokenize(token, " \t\0", w_len);
+			execFlag = builtin_functions(argv, token); 
+			if (!execFlag)
+			{
+				argv[0] = find(argv[0]);
+				if (argv[0] && access(argv[0], X_OK) == 0)
+					code = execute(argv[0], argv);
+				else
+					perror("./hsh");
+			}
+			frees_tokens(argv);
+		}
+		token = _strtok1(NULL, ";\n");
+	}
+	return (code);
+}
+
+/**
  * and - This function handles the "&&" logical operator
  * @str: String
  *
@@ -81,20 +116,26 @@ int and(char *str)
 
 /**
  * special_circ - This function handles ";", "&&" and "||"
- * @path_list: linked list path
  * @str: String
  *
  * Return: 0 if found 1 if not found
  */
 int special_circ(char *str)
 {
-	int i, code, w_len, execFlag;
+	int i, code;
 	int exec = 0;
-	char *token;
-	char **argv;
 
 	for (i = 0; str[i]; i++)
 	{
+		if (str[i] == '#')
+		{
+			while (str[i])
+			{
+				str[i] = ' ';
+				i++;
+			}
+			return (-1);
+		}
 		if (str[i] == ';')
 			exec = 1;
 		if (str[i] == '&' && str[i + 1] == '&')
@@ -107,36 +148,11 @@ int special_circ(char *str)
 	if (exec == 0)
 		return (-1);
 	if (exec == 1)
-	{
-		token = _strtok1(str, ";\n");
-		while (token != NULL)
-		{
-			w_len = count_input(token);
-			if (token[0] != '\n' && w_len > 0)
-			{
-				argv = tokenize(token, " \t\0", w_len);
-				execFlag = builtin_functions(argv, token); 
-				if (!execFlag)
-				{
-					argv[0] = find(argv[0]);
-					if (argv[0] && access(argv[0], X_OK) == 0)
-						code = execute(argv[0], argv);
-					else
-						perror("./hsh");
-				}
-				frees_tokens(argv);
-			}
-			token = _strtok1(NULL, ";\n");
-		}
-	}
+		code = semi(str);
 	if (exec == 2)
-	{
 		code = and(str);
-	}
 	if (exec == 3)
-	{
 		code = or(str);
-	}
 	return (code);
 }
 
