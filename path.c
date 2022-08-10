@@ -151,7 +151,7 @@ char *path_finder(char **argv, path_t *path_list, char *str)
 	{
 		if ((stat(argv[0], &st) == 0))
 		{
-			path = malloc(sizeof(char) * _strlen(argv[0]));
+			path = malloc(sizeof(char) * (_strlen(argv[0]) + 1));
 			path = _strcpy(path, argv[0]);
 		}
 		else
