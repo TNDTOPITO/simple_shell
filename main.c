@@ -35,10 +35,10 @@ int main(void)
 		{
 			argv = str_to_arr(str);
 			cmd = path_finder(argv, path_list, str);
-			if (cmd != NULL)
+			if (cmd != NULL && access(cmd, X_OK) == 0)
 				exit_status = execute(cmd, argv);
 			else if (argv[0] != NULL && !(check_builtin(argv)))
-				_printf("./hsh: No such file or directory");
+				perror("./hsh");
 			free_ac(cmd, argv);
 		}
 	}

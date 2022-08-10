@@ -150,10 +150,16 @@ int execute(char *cmd, char **argv)
 	int statusCode;
 
 	pro = fork();
-	if (pro == 0)
-		execve(cmd, argv, enviroment);
+	if (pro == -1)
+		perror("fork failed");
+	else if (pro == 0)
+		execve(cmd, argv, environ);
 	else
-		wait(&wstatus);
+	{
+		do {
+			waitpid(pro, &wstatus, WUNTRACED);
+		} while (WIFEXITED(wstatus) == 0 && WIFSIGNALED(wstatus) == 0);
+	}
 	statusCode = WEXITSTATUS(wstatus);
 	return (statusCode);
 }
