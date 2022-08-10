@@ -9,21 +9,33 @@
  */
 int or(char *str)
 {
-	int code = 0;
-	char *temp, *token;
+	int code = 0, w_len, execFlag;
+	char *token;
+	char **argv;
 
 	token = _strtok3(str, "|\n");
 	while (token != NULL)
 	{
-		temp = malloc(sizeof(char) * (_strlen(token) + 2));
-		temp = _strcpy(temp, token);
+		w_len = count_input(token);
+		if (token[0] != '\n' && w_len > 0)
+		{
+			argv = tokenize(token, " \t\0", w_len);
+			execFlag = builtin_functions(argv, token); 
+			if (!execFlag)
+			{
+				argv[0] = find(argv[0]);
+				if (argv[0] && access(argv[0], X_OK) == 0)
+					code = execute(argv[0], argv);
+				else
+					perror("./hsh");
+			}
+			frees_tokens(argv);
+		}
 		if (code == 0)
 		{
-			free(temp);
 			break;
 		}
 		token = _strtok3(NULL, "|\n");
-		free(temp);
 	}
 	return (code);
 }
@@ -36,21 +48,33 @@ int or(char *str)
  */
 int and(char *str)
 {
-	int code = 0;
-	char *temp, *token;
+	int code = 0, w_len, execFlag;
+	char *token;
+	char **argv;
 
 	token = _strtok2(str, "&\n");
 	while (token != NULL)
 	{
-		temp = malloc(sizeof(char) * (_strlen(token) + 2));
-		temp = _strcpy(temp, token);
+		w_len = count_input(token);
+		if (token[0] != '\n' && w_len > 0)
+		{
+			argv = tokenize(token, " \t\0", w_len);
+			execFlag = builtin_functions(argv, token); 
+			if (!execFlag)
+			{
+				argv[0] = find(argv[0]);
+				if (argv[0] && access(argv[0], X_OK) == 0)
+					code = execute(argv[0], argv);
+				else
+					perror("./hsh");
+			}
+			frees_tokens(argv);
+		}
 		if (code != 0)
 		{
-			free(temp);
 			break;
 		}
 		token = _strtok2(NULL, "&\n");
-		free(temp);
 	}
 	return (code);
 }
