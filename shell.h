@@ -92,4 +92,8 @@ int special_circ(path_t *path_list, char *str);
 
 char *_strtok1(char *str, const char *delim);
 
+char *_strtok2(char *str, const char *delim);
+
+char *_strtok3(char *str, const char *delim);
+
 #endif /* SHELL_H */
