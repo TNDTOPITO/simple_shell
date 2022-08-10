@@ -1,31 +1,29 @@
 #include "shell.h"
 
 /**
- * main - Entry point
- *
- * Description: Simple shell project
- *
- * Return: Always 0
+ * simple_shell - This function executes a commands from file
+ * @str: Name of file
  */
-int main(void)
+void simple_shell(char *str)
 {
-	char **argv;
-	char *str = NULL;
+	FILE *fp;
+	struct stat sb;
+	char **argv, *str = NULL;
 	int res, execFlag, w_len;
 	size_t num = 0;
 
+	if (!str)
+		return;
+	if (stat(str, &sb) != 0)
+		return;
 	while (1)
 	{
-		signal(SIGINT, signal_handler);
-		if (isatty(STDIN_FILENO))
-			_printf("$ ");
-		res = getline(&str, &num, stdin);
+		fp = fopen(str, "r");
+		if (fp == NULL)
+			return;
+		res = getline(&str, &num, fp);
 		if (res == -1)
-		{
-			if (isatty(STDIN_FILENO))
-				_printf("\n");
 			break;
-		}
 		execFlag = special_circ(str);
 		if (execFlag == -1)
 		{
@@ -33,7 +31,7 @@ int main(void)
 			if (str[0] != '\n' && w_len > 0)
 			{
 				argv = tokenize(str, " \t", w_len);
-				execFlag = builtin_functions(argv, str); 
+				execFlag = builtin_functions(argv, str);
 				if (!execFlag)
 				{
 					argv[0] = find(argv[0]);
@@ -47,5 +45,4 @@ int main(void)
 		}
 	}
 	free(str);
-	return (0);
 }
