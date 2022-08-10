@@ -99,14 +99,14 @@ char **str_to_arr(char *str)
 {
 	char **arrStr;
 	int i, len = 0;
-	char *token, *delim = " \t\n\0";
+	char *token, *delim = " \t\n";
 
 	for (i = 0; str[i]; i++)
 	{
-		if (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\0')
+		if (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
 			len++;
 	}
-	arrStr = malloc(sizeof(char *) * (len + 1));
+	arrStr = malloc(sizeof(char *) * (len + 2));
 	if (arrStr == NULL)
 		return (NULL);
 	token = _strtok(str, delim);
