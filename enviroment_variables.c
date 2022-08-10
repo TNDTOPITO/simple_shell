@@ -1,41 +1,14 @@
 #include "shell.h"
 
 /**
- * cpyEnviron - This function copies enviroment variables from environ
- * to a dynamically allocated array
- */
-void cpyEnviron(void)
-{
-	int i = 0, len;
-
-	while (environ[i])
-		i++;
-	len = i + 2;
-	enviroment = NULL;
-	enviroment = malloc(sizeof(char *) * len);
-	for (i = 0; environ[i]; i++)
-	{
-		len = _strlen(environ[i]) + 2;
-		enviroment[i] = malloc(sizeof(char) * len);
-		if (!enviroment)
-		{
-			perror("failed to allocate memory");
-			exit(98);
-		}
-		enviroment[i] = _strcpy(enviroment[i], environ[i]);
-	}
-	enviroment[i] = NULL;
-}
-
-/**
  * print_env - This function prints enviroment variables
  */
 void print_env(void)
 {
 	int i;
 
-	for (i = 0; enviroment[i]; i++)
-		_printf("%s\n", enviroment[i]);
+	for (i = 0; environ[i]; i++)
+		_printf("%s\n", environ[i]);
 }
 
 /**
