@@ -20,12 +20,14 @@ int main(void)
 	path_list = path();
 	while (1)
 	{
-		if (isatty(fileno(stdin)))
-			printf("#cisfun$ ");
+		signal(SIGINT, signal_handler);
+		if (isatty(STDIN_FILENO))
+			_printf("$ ");
 		res = _getline(&str, &num, stdin);
 		if (res == -1)
 		{
-			printf("#cisfun$ ");
+			 if (isatty(STDIN_FILENO))
+				_printf("\n");
 			break;
 		}
 		exit_status = special_circ(path_list, str);
@@ -36,7 +38,7 @@ int main(void)
 			if (cmd != NULL)
 				exit_status = execute(cmd, argv);
 			else if (argv[0] != NULL && !(check_builtin(argv)))
-				_printf("%s: command not found\n", argv[0]);
+				_printf("./hsh: No such file or directory");
 			free_ac(cmd, argv);
 		}
 	}

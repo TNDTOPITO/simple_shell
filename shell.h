@@ -30,6 +30,8 @@ extern char **environ;
 
 char **enviroment;
 
+void signal_handler(int sig_id);
+
 int _putchar(char c);
 
 int _printf(const char *format, ...);

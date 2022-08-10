@@ -46,8 +46,8 @@ path_t *path(void)
 	i = find_var("PATH");
 	if (i == -1)
 	{
-		perror("PATH enviroment variable not found");
-		exit(98);
+		_printf("PATH enviroment variable not found");
+		exit(1);
 	}
 	path = env[i];
 	while (*path != '=')
