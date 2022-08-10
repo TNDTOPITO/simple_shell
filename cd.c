@@ -16,8 +16,8 @@ char *fnd_path(char *str)
 	i = find_var(str);
 	if (i == -1)
 		return (NULL);
-	path = malloc(sizeof(char) * (_strlen(enviroment[i]) + 2));
-	path = _strcpy(path, enviroment[i]);
+	path = malloc(sizeof(char) * (_strlen(environ[i]) + 2));
+	path = _strcpy(path, environ[i]);
 	temp = path;
 	for (i = 0; *path != '='; i++)
 		path++;
@@ -26,30 +26,6 @@ char *fnd_path(char *str)
 	allpath = _strcpy(allpath, path);
 	free(temp);
 	return (allpath);
-}
-
-/**
- * update_var - This function updates enviroment variables
- * @name: variable name
- * @str: Value
- */
-void update_var(char *name, char *str)
-{
-	char **pwd = NULL;
-	int i;
-
-	pwd = malloc(sizeof(char *) * 5);
-	pwd[0] = malloc(sizeof(char) * 3);
-	pwd[1] = malloc(sizeof(char) * _strlen(name) + 2);
-	pwd[2] = malloc(sizeof(char) * _strlen(str) + 2);
-	pwd[0] = _strcpy(pwd[0], "cd");
-	pwd[1] = _strcpy(pwd[1], name);
-	pwd[2] = _strcpy(pwd[2], str);
-	pwd[3] = NULL;
-	_setenv(pwd);
-	for (i = 0; pwd[i]; i++)
-		free(pwd[i]);
-	free(pwd);
 }
 
 /**
@@ -82,8 +58,8 @@ void cd(char **argv)
 		return;
 	}
 	oldpwd = fnd_path("PWD");
-	update_var("PWD", path);
+	setenv("PWD", path, 1);
 	free(path);
-	update_var("OLDPWD", oldpwd);
+	setenv("OLDPWD", oldpwd, 1);
 	free(oldpwd);
 }

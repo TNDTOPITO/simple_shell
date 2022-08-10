@@ -12,6 +12,35 @@ void print_env(void)
 }
 
 /**
+ * creat_var - This function creates a new environment variable
+ * @argv: Arguments
+ */
+void creat_var(char **argv)
+{
+	int i;
+	char *var = NULL;
+	size_t size;
+
+	while (environ[i])
+		i++;
+
+	size = sizeof(char) * (_strlen(argv[1]) + 2);
+	size += sizeof(char) * (_strlen(argv[2]) + 2);
+	var = malloc(size);
+	if (!var)
+	{
+		perror("failed to allocate memory");
+		return;
+	}
+	var = _strcpy(var, argv[1]);
+	var = _strcat(var, "=");
+	var = _strcat(var, argv[2]);
+	i = putenv(var);
+	if (i != 0)
+		perror("failed to set variable");
+}
+
+/**
  * _setenv - This function changes or adds an environment variable
  * @argv: Arguments
  */
@@ -38,11 +67,7 @@ void _setenv(char **argv)
 		}
 		i++;
 	}
-	i = find_var(argv[1]);
-	if (i == -1)
-		creat_var(argv);
-	else
-		modify_var(argv, i);
+	creat_var(argv);
 }
 
 /**
