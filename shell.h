@@ -62,7 +62,7 @@ void free_ac(char *cmd, char **argv);
 
 void free_sl(char *str, path_t *path_list);
 
-void __exit(char *cmd, char **argv, char *str, path_t *path_list);
+void __exit(char **argv, char *str);
 
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
@@ -97,5 +97,25 @@ char *_strtok1(char *str, const char *delim);
 char *_strtok2(char *str, const char *delim);
 
 char *_strtok3(char *str, const char *delim);
+
+void frees_tokens(char **tokns);
+
+char *find(char *cname);
+
+char **tokenize(char *str, char *del, int len);
+
+int count_input(char *str);
+
+char *concat_path(char *pathname, char *progname);
+
+int count_delims(char *str, char *del);
+
+char *_getenv(char *name);
+
+int _strncmp(const char *s1, const char *s2, size_t len);
+
+char *remove_new_line(char *str);
+
+int builtin_functions(char **argv, char *str);
 
 #endif /* SHELL_H */

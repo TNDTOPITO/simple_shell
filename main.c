@@ -12,11 +12,9 @@ int main(void)
 	char **argv;
 	char *str = NULL;
 	int res;
+	int execFlag, w_len;
 	size_t num = 0;
-	path_t *path_list;
 
-	cpyEnviron();
-	path_list = path();
 	while (1)
 	{
 		signal(SIGINT, signal_handler);
@@ -29,16 +27,20 @@ int main(void)
 				_printf("\n");
 			break;
 		}
-		if (str[0] != '\n')
+		w_len = count_input(str);
+		if (str[0] != '\n' && w_len > 0)
 		{
-			argv = str_to_arr(str);
-			argv[0] = path_finder(argv, path_list, str);
-			if (argv[0] && access(argv[0], X_OK) == 0)
-				execute(argv[0], argv);
-			else
-				perror("./hsh");
-
-			free(argv);
+			argv = tokenize(str, " \t", w_len);
+			execFlag = builtin_functions(argv, str); 
+			if (!execFlag)
+			{
+				argv[0] = find(argv[0]);
+				if (argv[0] && access(argv[0], X_OK) == 0)
+					execute(argv[0], argv);
+				else
+					perror("./hsh");
+			}
+			frees_tokens(argv);
 		}
 	}
 

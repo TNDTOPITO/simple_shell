@@ -7,7 +7,7 @@
  * @str: String
  *
  * Return: exit code
- */
+ *
 int or(path_t *path_list, char *str)
 {
 	int code;
@@ -30,13 +30,13 @@ int or(path_t *path_list, char *str)
 	return (code);
 }
 
-/**
+**
  * and - This function handles the "&&" logical operator
  * @path_list: linked list path
  * @str: String
  *
  * Return: exit code
- */
+ *
 int and(path_t *path_list, char *str)
 {
 	int code;
@@ -59,13 +59,13 @@ int and(path_t *path_list, char *str)
 	return (code);
 }
 
-/**
+**
  * special_circ - This function handles ";", "&&" and "||"
  * @path_list: linked list path
  * @str: String
  *
  * Return: 0 if found 1 if not found
- */
+ *
 int special_circ(path_t *path_list, char *str)
 {
 	int i, code;
@@ -110,31 +110,7 @@ int special_circ(path_t *path_list, char *str)
 	return (code);
 }
 
-/**
- * command_sep - This function handles command separator
- * @path_list: linked list path
- * @str: String
- *
- * Return: exit code
- */
-int command_sep(path_t *path_list, char *str)
-{
-	int exit_status;
-	char *cmd = NULL;
-	char **argv;
-
-	argv = str_to_arr(str);
-	cmd = path_finder(argv, path_list, str);
-	if (cmd != NULL)
-		exit_status = execute(cmd, argv);
-	else if (argv[0] != NULL && !(check_builtin(argv)))
-		_printf("./hsh: No such file or directory\n", argv[0]);
-	free(cmd);
-	free(argv);
-
-	return (exit_status);
-}
-
+*/
 /**
  * execute - This function executes the program
  * @cmd: Command
