@@ -1,99 +1,39 @@
-#ifndef SHELL_H
-#define SHELL_H
+#ifndef _SHELL_
+#define _SHELL_
 
-#include <stdarg.h>
-#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <time.h>
-#include <stdbool.h>
-
-/**
- * struct path_s - singly linked list
- * @path: Path to directory
- * @next: Pointer to the next node
- *
- * Description - This struct contains all of the directories in the PATH
-(* variable
- */
-typedef struct path_s
-{
-	char *path;
-	struct path_s *next;
-} path_t;
+#include <signal.h>
+#include <stdio.h>
 
 extern char **environ;
 
-char **enviroment;
-
-int _putchar(char c);
-
-int _printf(const char *format, ...);
-
-char **str_to_arr(char *str);
-
-path_t *path(void);
-
-path_t *creat_list(char *path);
-
-void free_list(path_t *head);
-
-size_t _strlen(char *str);
-
 char *_strcat(char *dest, char *src);
-
-char *_strcpy(char *dest, char *src);
-
-char  *path_finder(char **argv, path_t *path_list, char *str);
-
-char *get_node(path_t *path_list, char *cmd);
-
+int _strlen(const char *s);
 int _strcmp(char *s1, char *s2);
+int _strncmp(const char *s1, const char *s2, size_t len);
+char *_strdup(char *str);
+int _atoi(char *s);
+int _putchar(char c);
+void _puts(char *str);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+int count_input(char *str);
+int count_delims(char *str, char *del);
+char *remove_new_line(char *str);
+void signal_handler(int sig_id);
+void _open_help(void);
+void _print_env(void);
+void _handle_exit(char **u_tokns, char *line);
+int execBuiltInCommands(char **u_tokns, char *line);
+void frees_get_env(char *env_path);
+void frees_tokens(char **tokns);
+int exec(char *cname, char **opts);
+char *_getenv(const char *name);
+char **tokenize(char *str, char *del, int len);
+char *find(char *cname);
 
-char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
-
-void free_ac(char *cmd, char **argv);
-
-void free_sl(char *str, path_t *path_list);
-
-void __exit(char *cmd, char **argv, char *str, path_t *path_list);
-
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-
-char *_strtok(char *str, const char *delim);
-
-void cpyEnviron(void);
-
-void print_env(void);
-
-int find_var(char *var_name);
-
-void _setenv(char **argv);
-
-void creat_var(char **argv);
-
-void modify_var(char **argv, int i);
-
-void _unsetenv(char **argv);
-
-void cd(char **argv);
-
-int check_builtin(char **argv);
-
-int execute(char *cmd, char **argv);
-
-int command_sep(path_t *path_list, char *str);
-
-int special_circ(path_t *path_list, char *str);
-
-char *_strtok1(char *str, const char *delim);
-
-char *_strtok2(char *str, const char *delim);
-
-char *_strtok3(char *str, const char *delim);
-
-#endif /* SHELL_H */
+#endif

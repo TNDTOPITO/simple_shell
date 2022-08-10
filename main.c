@@ -1,45 +1,48 @@
 #include "shell.h"
 
 /**
- * main - Entry point
- *
- * Description: Simple shell project
- *
- * Return: Always 0
- */
+  * main - Entry point to the Shell
+  *
+  * Return: Always zero.
+  */
 int main(void)
 {
-	char **argv;
-	char *str = NULL, *cmd;
-	int res;
-	size_t num = 0;
-	path_t *path_list;
-	int exit_status;
+	char *line = NULL, **u_tokns = NULL;
+	int w_len = 0, execFlag = 0;
+	size_t line_size = 0;
+	ssize_t line_len = 0;
 
-	cpyEnviron();
-	path_list = path();
-	while (1)
+	while (line_len >= 0)
 	{
-		if (isatty(fileno(stdin)))
-			printf("#cisfun$ ");
-		res = _getline(&str, &num, stdin);
-		if (res == -1)
+		signal(SIGINT, signal_handler);
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "($) ", 4);
+		line_len = getline(&line, &line_size, stdin);
+		if (line_len == -1)
 		{
-			printf("#cisfun$ ");
+			if (isatty(STDIN_FILENO))
+				write(STDOUT_FILENO, "\n", 1);
 			break;
 		}
-		exit_status = special_circ(path_list, str);
-		if (exit_status == -5)
+
+		w_len = count_input(line);
+		if (line[0] != '\n' && w_len > 0)
 		{
-			argv = str_to_arr(str);
-			cmd = path_finder(argv, path_list, str);
-			if (cmd != NULL)
-				exit_status = execute(cmd, argv);
-			else if (argv[0] != NULL && !(check_builtin(argv)))
-				_printf("%s: command not found\n", argv[0]);
-			free_ac(cmd, argv);
+			u_tokns = tokenize(line, " \t", w_len);
+			execFlag = execBuiltInCommands(u_tokns, line);
+			if (!execFlag)
+			{
+				u_tokns[0] = find(u_tokns[0]);
+				if (u_tokns[0] && access(u_tokns[0], X_OK) == 0)
+					exec(u_tokns[0], u_tokns);
+				else
+					perror("./hsh");
+			}
+
+			frees_tokens(u_tokns);
 		}
 	}
-	free_sl(str, path_list);
+
+	free(line);
 	return (0);
 }
