@@ -15,6 +15,7 @@ int main(void)
 	int execFlag, w_len;
 	size_t num = 0;
 
+	cpyEnviron();
 	while (1)
 	{
 		signal(SIGINT, signal_handler);
