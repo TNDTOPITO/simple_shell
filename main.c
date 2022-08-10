@@ -27,20 +27,24 @@ int main(void)
 				_printf("\n");
 			break;
 		}
-		w_len = count_input(str);
-		if (str[0] != '\n' && w_len > 0)
+		execFlag = special_circ(str);
+		if (execFlag == -1)
 		{
-			argv = tokenize(str, " \t", w_len);
-			execFlag = builtin_functions(argv, str); 
-			if (!execFlag)
+			w_len = count_input(str);
+			if (str[0] != '\n' && w_len > 0)
 			{
-				argv[0] = find(argv[0]);
-				if (argv[0] && access(argv[0], X_OK) == 0)
-					execute(argv[0], argv);
-				else
-					perror("./hsh");
+				argv = tokenize(str, " \t", w_len);
+				execFlag = builtin_functions(argv, str); 
+				if (!execFlag)
+				{
+					argv[0] = find(argv[0]);
+					if (argv[0] && access(argv[0], X_OK) == 0)
+						execute(argv[0], argv);
+					else
+						perror("./hsh");
+				}
+				frees_tokens(argv);
 			}
-			frees_tokens(argv);
 		}
 	}
 

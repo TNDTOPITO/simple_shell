@@ -3,14 +3,13 @@
 
 /**
  * or - This function handles the "||" logical operator
- * @path_list: linked list path
  * @str: String
  *
  * Return: exit code
- *
-int or(path_t *path_list, char *str)
+ */
+int or(char *str)
 {
-	int code;
+	int code = 0;
 	char *temp, *token;
 
 	token = _strtok3(str, "|\n");
@@ -18,7 +17,6 @@ int or(path_t *path_list, char *str)
 	{
 		temp = malloc(sizeof(char) * (_strlen(token) + 2));
 		temp = _strcpy(temp, token);
-		code = command_sep(path_list, temp);
 		if (code == 0)
 		{
 			free(temp);
@@ -30,16 +28,15 @@ int or(path_t *path_list, char *str)
 	return (code);
 }
 
-**
+/**
  * and - This function handles the "&&" logical operator
- * @path_list: linked list path
  * @str: String
  *
  * Return: exit code
- *
-int and(path_t *path_list, char *str)
+ */
+int and(char *str)
 {
-	int code;
+	int code = 0;
 	char *temp, *token;
 
 	token = _strtok2(str, "&\n");
@@ -47,7 +44,6 @@ int and(path_t *path_list, char *str)
 	{
 		temp = malloc(sizeof(char) * (_strlen(token) + 2));
 		temp = _strcpy(temp, token);
-		code = command_sep(path_list, temp);
 		if (code != 0)
 		{
 			free(temp);
@@ -59,19 +55,19 @@ int and(path_t *path_list, char *str)
 	return (code);
 }
 
-**
+/**
  * special_circ - This function handles ";", "&&" and "||"
  * @path_list: linked list path
  * @str: String
  *
  * Return: 0 if found 1 if not found
- *
-int special_circ(path_t *path_list, char *str)
+ */
+int special_circ(char *str)
 {
-	int i, code;
-	int exec = 1;
+	int i, code, w_len, execFlag;
+	int exec = 0;
 	char *token;
-	char *temp;
+	char **argv;
 
 	for (i = 0; str[i]; i++)
 	{
@@ -85,32 +81,41 @@ int special_circ(path_t *path_list, char *str)
 		}
 	}
 	if (exec == 0)
-		return (-5);
+		return (-1);
 	if (exec == 1)
 	{
 		token = _strtok1(str, ";\n");
 		while (token != NULL)
 		{
-			temp = malloc(sizeof(char) * (_strlen(token) + 2));
-			temp = _strcpy(temp, token);
-			code = command_sep(path_list, temp);
+			w_len = count_input(token);
+			if (token[0] != '\n' && w_len > 0)
+			{
+				argv = tokenize(token, " \t\0", w_len);
+				execFlag = builtin_functions(argv, token); 
+				if (!execFlag)
+				{
+					argv[0] = find(argv[0]);
+					if (argv[0] && access(argv[0], X_OK) == 0)
+						code = execute(argv[0], argv);
+					else
+						perror("./hsh");
+				}
+				frees_tokens(argv);
+			}
 			token = _strtok1(NULL, ";\n");
-			free(temp);
 		}
 	}
 	if (exec == 2)
 	{
-		printf("herr1\n");
-		code = and(path_list, str);
+		code = and(str);
 	}
 	if (exec == 3)
 	{
-		code = or(path_list, str);
+		code = or(str);
 	}
 	return (code);
 }
 
-*/
 /**
  * execute - This function executes the program
  * @cmd: Command

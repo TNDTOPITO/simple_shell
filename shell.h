@@ -90,7 +90,7 @@ int execute(char *cmd, char **argv);
 
 int command_sep(path_t *path_list, char *str);
 
-int special_circ(path_t *path_list, char *str);
+int special_circ(char *str);
 
 char *_strtok1(char *str, const char *delim);
 
