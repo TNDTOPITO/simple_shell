@@ -39,12 +39,17 @@ void cd(char **argv)
 	char *oldpwd = NULL;
 
 	if (argv[1] == NULL)
+	{
 		path = fnd_path("HOME");
+		if (!path)
+			path = fnd_path("PWD");
+	}
 	else if (argv[1][0] == '-')
 	{
 		path = fnd_path("OLDPWD");
 		if (path == NULL)
 			path = fnd_path("PWD");
+		_printf("%s\n", path);
 	}
 	else
 	{
@@ -54,7 +59,8 @@ void cd(char **argv)
 	i = chdir(path);
 	if (i == -1)
 	{
-		_printf("cd: can't cd to %s\n", argv[1]);
+		_printf("%s\n", fnd_path("PWD"));
+		fprintf(stderr, "cd: can't cd to %s\n", argv[1]);
 		return;
 	}
 	oldpwd = fnd_path("PWD");
