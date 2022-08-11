@@ -59,7 +59,6 @@ void cd(char **argv)
 	i = chdir(path);
 	if (i == -1)
 	{
-		_printf("%s\n", fnd_path("PWD"));
 		fprintf(stderr, "cd: can't cd to %s\n", argv[1]);
 		return;
 	}
