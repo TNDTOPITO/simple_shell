@@ -56,7 +56,6 @@ int builtin_functions(char **argv, char * str)
 	}
 	if (_strcmp(argv[0], "unsetenv"))
 	{
-		_unsetenv(argv);
 		return (1);
 	}
 	if (_strcmp(argv[0], "env"))

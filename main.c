@@ -47,5 +47,5 @@ int main(void)
 		}
 	}
 	free(str);
-	return (0);
+	return (exit_status);
 }

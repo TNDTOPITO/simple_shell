@@ -70,29 +70,3 @@ void _setenv(char **argv)
 	creat_var(argv);
 }
 
-/**
- * _unsetenv - This function removes
- * @argv: Arguments
- */
-void _unsetenv(char **argv)
-{
-	int i;
-	int index;
-
-	if (!argv[1] || argv[1][0] == '\0')
-	{
-		perror("variable name can't be NULL or length of 0");
-		return;
-	}
-
-	index = find_var(argv[1]);
-	if (index == -1)
-	{
-		perror("name not found proof");
-		return;
-	}
-	free(enviroment[index]);
-	for (i = index; enviroment[i + 1]; i++)
-		enviroment[i] = enviroment[i + 1];
-	enviroment[i] = NULL;
-}

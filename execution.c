@@ -182,5 +182,6 @@ int execute(char *cmd, char **argv)
 		} while (WIFEXITED(wstatus) == 0 && WIFSIGNALED(wstatus) == 0);
 	}
 	statusCode = WEXITSTATUS(wstatus);
+	exit_status = statusCode;
 	return (statusCode);
 }

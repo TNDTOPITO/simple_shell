@@ -32,12 +32,13 @@ void __exit(char **argv, char *str)
 	int status;
 
 	if (!argv[1])
-		status = 0;
+		status = exit_status;
 	else
 		status = _atoi(argv[1]);
 	if (status == -1)
 	{
-		_printf("sh: 1: exit: Illegal number: %s\n", argv[1]);
+		fprintf(stderr, "./hsh: 1: exit: Illegal number: %s\n", argv[1]);
+		exit_status = 2;
 		return;
 	}
 	free(str);

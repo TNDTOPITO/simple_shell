@@ -28,7 +28,7 @@ typedef struct path_s
 
 extern char **environ;
 
-char **enviroment;
+int exit_status;
 
 void signal_handler(int sig_id);
 
@@ -36,39 +36,17 @@ int _putchar(char c);
 
 int _printf(const char *format, ...);
 
-char **str_to_arr(char *str);
-
-path_t *path(void);
-
-path_t *creat_list(char *path);
-
-void free_list(path_t *head);
-
 size_t _strlen(char *str);
 
 char *_strcat(char *dest, char *src);
 
 char *_strcpy(char *dest, char *src);
 
-char  *path_finder(char **argv, path_t *path_list, char *str);
-
-char *get_node(path_t *path_list, char *cmd);
-
 int _strcmp(char *s1, char *s2);
 
 char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
 
-void free_ac(char *cmd, char **argv);
-
-void free_sl(char *str, path_t *path_list);
-
 void __exit(char **argv, char *str);
-
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-
-char *_strtok(char *str, const char *delim);
-
-void cpyEnviron(void);
 
 void print_env(void);
 
