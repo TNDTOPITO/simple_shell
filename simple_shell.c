@@ -38,7 +38,7 @@ void simple_shell(char *string)
 {
 	FILE *fp;
 	char buffer[128];
-	char *lineptr;
+	char *lineptr = NULL;
 	int n = 20;
 
 	fp = fopen(string, "r");
@@ -66,6 +66,7 @@ void simple_shell(char *string)
 		if ((lineptr)[_strlen(lineptr) - 1] == '\n')
 			exec_line(lineptr);
 	}
+	fclose(fp);
 	free(lineptr);
 	exit(exit_status);
 }
