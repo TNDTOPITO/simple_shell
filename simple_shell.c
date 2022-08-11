@@ -44,7 +44,7 @@ void simple_shell(char *string)
 	fp = fopen(string, "r");
 	if (!fp)
 	{
-		fprintf(stderr, "./hsh: 0: Can't open %s", string);
+		fprintf(stderr, "./hsh: 0: Can't open %s\n", string);
 		exit(127);
 	}
 	lineptr = malloc(sizeof(char) * 20);
