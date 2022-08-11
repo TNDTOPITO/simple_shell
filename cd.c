@@ -59,7 +59,7 @@ void cd(char **argv)
 	i = chdir(path);
 	if (i == -1)
 	{
-		fprintf(stderr, "cd: can't cd to %s\n", argv[1]);
+		fprintf(stderr, "./hsh: 1: cd: can't cd to %s\n", argv[1]);
 		return;
 	}
 	oldpwd = fnd_path("PWD");
