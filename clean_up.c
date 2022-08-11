@@ -22,10 +22,8 @@ int _atoi(char *s)
 
 /**
  * __exit - This function exits the program and frees all allocated memory
- * @cmd: Pointer to string
  * @argv: Pointer to string
  * @str: Pointer to string
- * @path_list: Pointer to a linked list
  */
 void __exit(char **argv, char *str)
 {

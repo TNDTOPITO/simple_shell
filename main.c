@@ -2,18 +2,21 @@
 
 /**
  * main - Entry point
+ * @ac: Number of argumenents
+ * @av: Arguments
  *
  * Description: Simple shell project
  *
  * Return: Always 0
  */
-int main(void)
+int main(int ac, char **av)
 {
-	char **argv;
-	char *str = NULL;
+	char **argv, *str = NULL;
 	int res, execFlag, w_len;
 	size_t num = 0;
 
+	if (ac == 2)
+		simple_shell(av[1]);
 	while (1)
 	{
 		signal(SIGINT, signal_handler);
@@ -33,7 +36,7 @@ int main(void)
 			if (str[0] != '\n' && w_len > 0)
 			{
 				argv = tokenize(str, " \t", w_len);
-				execFlag = builtin_functions(argv, str); 
+				execFlag = builtin_functions(argv, str);
 				if (!execFlag)
 				{
 					argv[0] = find(argv[0]);

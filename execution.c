@@ -20,7 +20,7 @@ int or(char *str)
 		if (token[0] != '\n' && w_len > 0)
 		{
 			argv = tokenize(token, " \t\0", w_len);
-			execFlag = builtin_functions(argv, token); 
+			execFlag = builtin_functions(argv, token);
 			if (!execFlag)
 			{
 				argv[0] = find(argv[0]);
@@ -59,7 +59,7 @@ int semi(char *str)
 		if (token[0] != '\n' && w_len > 0)
 		{
 			argv = tokenize(token, " \t\0", w_len);
-			execFlag = builtin_functions(argv, token); 
+			execFlag = builtin_functions(argv, token);
 			if (!execFlag)
 			{
 				argv[0] = find(argv[0]);
@@ -94,7 +94,7 @@ int and(char *str)
 		if (token[0] != '\n' && w_len > 0)
 		{
 			argv = tokenize(token, " \t\0", w_len);
-			execFlag = builtin_functions(argv, token); 
+			execFlag = builtin_functions(argv, token);
 			if (!execFlag)
 			{
 				argv[0] = find(argv[0]);

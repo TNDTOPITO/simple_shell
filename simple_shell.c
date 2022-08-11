@@ -1,48 +1,71 @@
 #include "shell.h"
 
 /**
+ * exec_line - This function executes a line
+ * @str: Pointer to string
+ */
+void exec_line(char *str)
+{
+	char **argv;
+	int execFlag, w_len;
+
+	execFlag = special_circ(str);
+	if (execFlag == -1)
+	{
+		w_len = count_input(str);
+		if (str[0] != '\n' && w_len > 0)
+		{
+			argv = tokenize(str, " \t", w_len);
+			execFlag = builtin_functions(argv, str);
+			if (!execFlag)
+			{
+				argv[0] = find(argv[0]);
+				if (argv[0] && access(argv[0], X_OK) == 0)
+					execute(argv[0], argv);
+				else
+					perror("./hsh");
+			}
+			frees_tokens(argv);
+		}
+	}
+}
+
+/**
  * simple_shell - This function executes a commands from file
- * @str: Name of file
+ * @string: Name of file
  */
 void simple_shell(char *string)
 {
 	FILE *fp;
-	struct stat sb;
-	char **argv, *str;
-	int res, execFlag, w_len;
-	size_t num = 0;
+	char buffer[128];
+	char *lineptr;
+	int n = 20;
 
-	if (!string)
-		return;
-	if (stat(string, &sb) != 0)
-		return;
-	while (1)
+	fp = fopen(string, "r");
+	if (!fp)
 	{
-		fp = fopen(string, "r");
-		if (fp == NULL)
-			return;
-		res = getline(&str, &num, fp);
-		if (res == -1)
-			break;
-		execFlag = special_circ(str);
-		if (execFlag == -1)
+		fprintf(stderr, "./hsh: 0: Can't open %s", string);
+		exit(127);
+	}
+	lineptr = malloc(sizeof(char) * 20);
+	lineptr[0] = '\0';
+	while ((fgets(buffer, sizeof(buffer), fp)) != NULL)
+	{
+		if (n - _strlen(lineptr) < sizeof(buffer))
 		{
-			w_len = count_input(str);
-			if (str[0] != '\n' && w_len > 0)
+			lineptr = _realloc(lineptr, n, n * 2);
+			n *= 2;
+			if (lineptr == NULL)
 			{
-				argv = tokenize(str, " \t", w_len);
-				execFlag = builtin_functions(argv, str);
-				if (!execFlag)
-				{
-					argv[0] = find(argv[0]);
-					if (argv[0] && access(argv[0], X_OK) == 0)
-						execute(argv[0], argv);
-					else
-						perror("./hsh");
-				}
-				frees_tokens(argv);
+				perror("Failed to allocate memory");
+				free(lineptr);
+				exit(127);
 			}
 		}
+		_strcpy(lineptr, buffer);
+		if ((lineptr)[_strlen(lineptr) - 1] == '\n')
+			exec_line(lineptr);
 	}
-	free(str);
+	free(lineptr);
+	exit(exit_status);
 }

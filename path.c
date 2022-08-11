@@ -34,16 +34,12 @@ int find_var(char *var_name)
 /**
  * builtin_functions - This function handles the shell builtin functions
  * @argv: Arguments
+ * @str: Pointer to string
  *
  * Return: 0 if builtin function is found, 1 if it's not found
  */
-int builtin_functions(char **argv, char * str)
+int builtin_functions(char **argv, char *str)
 {
-	if (_strcmp(argv[0], "simple_shell"))
-	{
-		simple_shell(argv[1]);
-		return (1);
-	}
 	if (_strcmp(argv[0], "exit"))
 	{
 		__exit(argv, str);
