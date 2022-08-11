@@ -1,43 +1,42 @@
 #include "shell.h"
 
 /**
+ * cpyEnviron - This function copies enviroment variables from environ
+ * to a dynamically allocated array
+ */
+void cpyEnviron(void)
+{
+	int i = 0, len;
+
+	while (environ[i])
+		i++;
+	len = i + 2;
+	enviroment = malloc(sizeof(char *) * len);
+	enviroment[0] = NULL;
+	for (i = 0; environ[i]; i++)
+	{
+		len = _strlen(environ[i]) + 2;
+		enviroment[i] = malloc(sizeof(char) * len);
+		if (!enviroment)
+		{
+			perror("failed to allocate memory");
+			exit(98);
+		}
+		enviroment[i][0] = '\0';
+		enviroment[i] = _strcpy(enviroment[i], environ[i]);
+	}
+	enviroment[i] = NULL;
+}
+
+/**
  * print_env - This function prints enviroment variables
  */
 void print_env(void)
 {
 	int i;
 
-	for (i = 0; environ[i]; i++)
-		_printf("%s\n", environ[i]);
-}
-
-/**
- * creat_var - This function creates a new environment variable
- * @argv: Arguments
- */
-void creat_var(char **argv)
-{
-	int i;
-	char *var = NULL;
-	size_t size;
-
-	while (environ[i])
-		i++;
-
-	size = sizeof(char) * (_strlen(argv[1]) + 2);
-	size += sizeof(char) * (_strlen(argv[2]) + 2);
-	var = malloc(size);
-	if (!var)
-	{
-		perror("failed to allocate memory");
-		return;
-	}
-	var = _strcpy(var, argv[1]);
-	var = _strcat(var, "=");
-	var = _strcat(var, argv[2]);
-	i = putenv(var);
-	if (i != 0)
-		perror("failed to set variable");
+	for (i = 0; enviroment[i]; i++)
+		_printf("%s\n", enviroment[i]);
 }
 
 /**
@@ -67,6 +66,36 @@ void _setenv(char **argv)
 		}
 		i++;
 	}
-	creat_var(argv);
+	i = find_var(argv[1]);
+	if (i == -1)
+		creat_var(argv);
+	else
+		modify_var(argv, i);
 }
 
+/**
+ * _unsetenv - This function removes
+ * @argv: Arguments
+ */
+void _unsetenv(char **argv)
+{
+	int i;
+	int index;
+
+	if (!argv[1] || argv[1][0] == '\0')
+	{
+		perror("variable name can't be NULL or length of 0");
+		return;
+	}
+
+	index = find_var(argv[1]);
+	if (index == -1)
+	{
+		perror("name not found proof");
+		return;
+	}
+	free(enviroment[index]);
+	for (i = index; enviroment[i + 1]; i++)
+		enviroment[i] = enviroment[i + 1];
+	enviroment[i] = NULL;
+}

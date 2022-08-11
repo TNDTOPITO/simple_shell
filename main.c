@@ -17,6 +17,7 @@ int main(int ac, char **av)
 
 	if (ac == 2)
 		simple_shell(av[1]);
+	cpyEnviron();
 	while (1)
 	{
 		signal(SIGINT, signal_handler);
@@ -50,5 +51,6 @@ int main(int ac, char **av)
 		}
 	}
 	free(str);
+	free_env();
 	return (exit_status);
 }

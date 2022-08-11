@@ -28,6 +28,12 @@ typedef struct path_s
 
 extern char **environ;
 
+char **enviroment;
+
+void free_env(void);
+
+void cpyEnviron(void);
+
 int exit_status;
 
 void signal_handler(int sig_id);

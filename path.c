@@ -8,7 +8,7 @@
  */
 int find_var(char *var_name)
 {
-	char **env = environ;
+	char **env = enviroment;
 	int i, y = 0, match;
 
 	for (i = 0; env[i]; i++)

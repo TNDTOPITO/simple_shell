@@ -40,6 +40,21 @@ void __exit(char **argv, char *str)
 		return;
 	}
 	free(str);
+	free_env();
 	frees_tokens(argv);
 	exit(status);
+}
+
+/**
+ * free_env - This function frees memory that was allocated to the linked list
+ */
+void free_env(void)
+{
+	int i;
+
+	for (i = 0; enviroment[i]; i++)
+	{
+		free(enviroment[i]);
+	}
+	free(enviroment);
 }
