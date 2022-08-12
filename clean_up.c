@@ -41,6 +41,7 @@ void __exit(char **argv, char *str)
 	}
 	free(str);
 	free_env();
+	frees_tokens(aliase);
 	frees_tokens(argv);
 	exit(status);
 }

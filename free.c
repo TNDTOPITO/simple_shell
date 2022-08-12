@@ -130,6 +130,7 @@ char **tokenize(char *str, char *del, int len)
 	while (token)
 	{
 		tokens[i] = strdup(token);
+		tokens[i] = chk_str(tokens[i]);
 		token = strtok(NULL, del);
 		i++;
 	}

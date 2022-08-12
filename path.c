@@ -3,14 +3,17 @@
 /**
  * find_var - This function searches for an environment variable
  * @var_name: Name of the variable to search for
+ * @arr: ...
  *
  * Return: Index on match, -1 if no match was found
  */
-int find_var(char *var_name)
+int find_var(char *var_name, char **arr)
 {
-	char **env = enviroment;
-	int i, y = 0, match;
+	char **env = arr;
+	int i = 0, y = 0, match;
 
+	if (!env)
+		return (-1);
 	for (i = 0; env[i]; i++)
 	{
 		while (env[i][y] != '=')
@@ -24,7 +27,7 @@ int find_var(char *var_name)
 			}
 			y++;
 		}
-		if (match)
+		if (match && var_name[y] == '\0')
 			return (i);
 		y = 0;
 	}
@@ -40,6 +43,11 @@ int find_var(char *var_name)
  */
 int builtin_functions(char **argv, char *str)
 {
+	if (_strcmp(argv[0], "alias"))
+	{
+		alias(argv);
+		return (1);
+	}
 	if (_strcmp(argv[0], "exit"))
 	{
 		__exit(argv, str);

@@ -30,6 +30,10 @@ extern char **environ;
 
 char **enviroment;
 
+char **aliase;
+
+void alias(char **argv);
+
 void free_env(void);
 
 void cpyEnviron(void);
@@ -56,7 +60,9 @@ void __exit(char **argv, char *str);
 
 void print_env(void);
 
-int find_var(char *var_name);
+char *chk_str(char *token);
+
+int find_var(char *var_name, char **arr);
 
 void _setenv(char **argv);
 

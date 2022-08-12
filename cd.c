@@ -13,7 +13,7 @@ char *fnd_path(char *str)
 	char *temp = NULL;
 	char *allpath = NULL;
 
-	i = find_var(str);
+	i = find_var(str, enviroment);
 	if (i == -1)
 		return (NULL);
 	path = malloc(sizeof(char) * (_strlen(environ[i]) + 2));

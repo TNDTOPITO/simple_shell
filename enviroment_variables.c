@@ -49,7 +49,6 @@ void _setenv(char **argv)
 
 	if (!argv[1] || argv[1][0] == '\0')
 	{
-		perror("variable name can't be NULL or length of 0");
 		return;
 	}
 	if (!argv[2])
@@ -66,7 +65,7 @@ void _setenv(char **argv)
 		}
 		i++;
 	}
-	i = find_var(argv[1]);
+	i = find_var(argv[1], enviroment);
 	if (i == -1)
 		creat_var(argv);
 	else
@@ -84,11 +83,11 @@ void _unsetenv(char **argv)
 
 	if (!argv[1] || argv[1][0] == '\0')
 	{
-		perror("variable name can't be NULL or length of 0");
+		print_env();
 		return;
 	}
 
-	index = find_var(argv[1]);
+	index = find_var(argv[1], enviroment);
 	if (index == -1)
 	{
 		perror("name not found proof");

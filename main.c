@@ -52,5 +52,6 @@ int main(int ac, char **av)
 	}
 	free(str);
 	free_env();
+	frees_tokens(aliase);
 	return (exit_status);
 }
