@@ -54,10 +54,21 @@ void add_al(char *str)
  */
 void print_al(char *str)
 {
-	int i = 0;
+	int i = 0, index;
 
 	i = find_var(str, aliase);
-	_printf("%s print\n", aliase[i]);
+	for (index = 0; aliase[i][index]; index++)
+	{
+		if (aliase[i][index] == '=')
+		{
+			_putchar('=');
+			_putchar('\'');
+		}
+		else
+			_putchar(aliase[i][index]);
+	}
+	_putchar('\'');
+	_putchar('\n');
 }
 
 /**
@@ -73,7 +84,20 @@ void alias(char **argv)
 	if (!argv[1])
 	{
 		for (i = 0; aliase[i]; i++)
-			_printf("%s\n", aliase[i]);
+		{
+			for (index = 0; aliase[i][index]; index++)
+			{
+				if (aliase[i][index] == '=')
+				{
+					_putchar('=');
+					_putchar('\'');
+				}
+				else
+					_putchar(aliase[i][index]);
+			}
+		}
+		_putchar('\'');
+		_putchar('\n');
 		return;
 	}
 	for (i = 1; argv[i]; i++)
