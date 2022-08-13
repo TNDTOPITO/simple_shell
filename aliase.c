@@ -1,6 +1,42 @@
 #include "shell.h"
 
 /**
+ * find_var_rev - This function searches for an environment variable
+ * @var_name: Name of the variable to search for
+ * @arr: ...
+ *
+ * Return: Index on match, -1 if no match was found
+ */
+int find_var_rev(char *var_name, char **arr)
+{
+	char **env = arr;
+	int i = 0, y = 0, match, index;
+
+	if (!env)
+		return (-1);
+	for (i = 0; env[i]; i++)
+	{
+		y = strlen(env[i]);
+		index = strlen(var_name);
+		while (env[i][y] != '=' && y >= 0)
+		{
+			if (var_name[index] == env[i][y])
+				match = 1;
+			else
+			{
+				match = 0;
+				break;
+			}
+			y--;
+			index--;
+		}
+		if (match)
+			return (i);
+	}
+	return (-1);
+}
+
+/**
  * add_al - This function adds or modify an aliase
  * @str: Aliase;
  */
@@ -25,8 +61,8 @@ void add_al(char *str)
 		i++;
 	cpy = malloc(sizeof(char) * (i + 2));
 	cpy[0] = '\0';
-	cpy = strncpy(cpy, str, i - 1);
-	cpy[i] = '\0';
+	cpy = strncpy(cpy, str, i);
+	cpy[i + 1] = '\0';
 	i = find_var(cpy, aliase);
 	free(cpy);
 	if (i != -1)
@@ -56,7 +92,11 @@ void print_al(char *str)
 {
 	int i = 0, index;
 
-	i = find_var(str, aliase);
+	i = find_var_rev(str, aliase);
+	if (i == -1)
+		i = find_var(str, aliase);
+	if (i == -1)
+		return;
 	for (index = 0; aliase[i][index]; index++)
 	{
 		if (aliase[i][index] == '=')
@@ -88,16 +128,12 @@ void alias(char **argv)
 			for (index = 0; aliase[i][index]; index++)
 			{
 				if (aliase[i][index] == '=')
-				{
-					_putchar('=');
-					_putchar('\'');
-				}
+					_printf("=\'");
 				else
 					_putchar(aliase[i][index]);
 			}
+		_printf("\'\n");
 		}
-		_putchar('\'');
-		_putchar('\n');
 		return;
 	}
 	for (i = 1; argv[i]; i++)
@@ -111,8 +147,11 @@ void alias(char **argv)
 				break;
 			}
 		}
+		
 		if (print_mode)
+		{
 			print_al(argv[i]);
+		}
 		print_mode = 1;
 	}
 }

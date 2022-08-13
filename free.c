@@ -104,7 +104,7 @@ int count_input(char *str)
 		i++;
 	}
 
-	return (cw);
+	return (cw + 3);
 }
 /**
   * tokenize - Extract tokens from string
@@ -119,14 +119,14 @@ char **tokenize(char *str, char *del, int len)
 	char **tokens = NULL, *token = NULL, *temp = NULL;
 	int i = 0;
 
-	tokens = malloc(sizeof(char *) * (len + 1));
+	tokens = malloc(sizeof(char *) * (len));
 	if (!tokens)
 		return (NULL);
 
 	str = remove_new_line(str);
 	temp = strdup(str);
 	token = strtok(temp, del);
-
+	
 	while (token)
 	{
 		tokens[i] = strdup(token);
