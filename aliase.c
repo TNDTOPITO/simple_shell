@@ -2,7 +2,7 @@
 
 /**
  * add_al - This function adds or modify an aliase
- *
+ * @str: Aliase;
  */
 void add_al(char *str)
 {
@@ -119,7 +119,7 @@ void alias(char **argv)
 
 /**
  * chk_str - This function checks for aliases and variables
- * @str: string to check
+ * @token: string to check
  *
  * Return: String
  */
