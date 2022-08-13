@@ -8,7 +8,7 @@ void run(char *str)
 {
 	char **argv = NULL;
 	int w_len = 0, execFlag = 0;
-	
+
 	w_len = count_input(str);
 	if (str[0] != '\n' && w_len > 0)
 	{
