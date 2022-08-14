@@ -22,7 +22,7 @@ void run(char *str)
 			else
 			{
 				exit_status = 127;
-				fprintf(stderr, "./hsh: 1: ls: not found\n");
+				fprintf(stderr, "./hsh: 1: %s: not found\n", argv[0]);
 			}
 		}
 		frees_tokens(argv);
