@@ -35,40 +35,6 @@ int find_var(char *var_name, char **arr)
 }
 
 /**
- * find_var1 - This function searches for an environment variable
- * @var_name: Name of the variable to search for
- * @arr: ...
- *
- * Return: Index on match, -1 if no match was found
- */
-int find_var1(void)
-{
-	char **env = NULL, *var_name = "set";
-	int i = 0, y = 0, match = 0;
-
-	env = aliase;
-	if (!env)
-		return (-1);
-	for (i = 0; env[i]; i++)
-	{
-		while (env[i][y] != '=')
-		{
-			if (var_name[y] == env[i][y])
-				match = 1;
-			else
-			{
-				match = 0;
-				break;
-			}
-			y++;
-		}
-		if (match && var_name[y] == '\0')
-			return (i);
-		y = 0;
-	}
-	return (-1);
-}
-/**
  * builtin_functions - This function handles the shell builtin functions
  * @argv: Arguments
  * @str: Pointer to string

@@ -196,7 +196,9 @@ char *chk_str(char *token)
 	}
 	i = find_var(token, aliase);
 	if (i == -1)
+	{
 		return (token);
+	}
 	while (i != -1)
 	{
 		temp = aliase[i];
