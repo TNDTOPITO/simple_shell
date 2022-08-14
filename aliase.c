@@ -167,7 +167,7 @@ char *chk_str(char *token)
 	int i = 0;
 	char *temp = NULL;
 
-	if (token[0] == '$')
+	if (token[0] == '$' && token[1] != '\0')
 	{
 		if (token[1] == '?')
 		{
