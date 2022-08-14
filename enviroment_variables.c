@@ -89,7 +89,6 @@ void _unsetenv(char **argv)
 	index = find_var(argv[1], enviroment);
 	if (index == -1)
 	{
-		perror("name not found");
 		return;
 	}
 	free(enviroment[index]);
