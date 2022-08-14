@@ -72,7 +72,6 @@ void add_al(char *str)
 		while (aliase[index])
 			index++;
 		tempStr = malloc(sizeof(char *) * (index + 2));
-		tempStr[0][0] = '\0';
 		for (i = 0; aliase[i]; i++)
 			tempStr[i] = aliase[i];
 		tempStr[i] = string;
