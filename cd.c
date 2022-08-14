@@ -16,8 +16,8 @@ char *fnd_path(char *str)
 	i = find_var(str, enviroment);
 	if (i == -1)
 		return (NULL);
-	path = malloc(sizeof(char) * (_strlen(environ[i]) + 2));
-	path = _strcpy(path, environ[i]);
+	path = malloc(sizeof(char) * (_strlen(enviroment[i]) + 2));
+	path = _strcpy(path, enviroment[i]);
 	temp = path;
 	for (i = 0; *path != '='; i++)
 		path++;

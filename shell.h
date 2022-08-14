@@ -114,4 +114,6 @@ char *remove_new_line(char *str);
 
 int builtin_functions(char **argv, char *str);
 
+char *fnd_path(char *str);
+
 #endif /* SHELL_H */

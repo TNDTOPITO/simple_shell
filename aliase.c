@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <stdlib.h>
 
 /**
  * find_var_rev - This function searches for an environment variable
@@ -166,6 +167,28 @@ char *chk_str(char *token)
 	int i = 0;
 	char *temp = NULL;
 
+	if (token[0] == '$')
+	{
+		if (token[1] == '?')
+		{
+			temp = malloc(sizeof(char) * 5);
+			temp[0] = '\0';
+			sprintf(temp, "%d", exit_status);
+			return (temp);
+		}
+		if (token[1] == '$')
+		{
+			temp = malloc(sizeof(char) * 1024);
+			temp[0] = '\0';
+			sprintf(temp,"%d", getpid());
+			return (temp);
+		}
+		temp = token;
+		token++;
+		token = fnd_path(token);
+		free(temp);
+		return (token);
+	}
 	for (i = 0; token[i]; i++)
 	{
 		if (token[i] == '=')
