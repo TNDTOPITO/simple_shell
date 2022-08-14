@@ -62,6 +62,10 @@ void print_env(void);
 
 char *chk_str(char *token);
 
+/*int find_var1(char *var_name);*/
+
+int find_var1(void);
+
 int find_var(char *var_name, char **arr);
 
 void _setenv(char **argv);

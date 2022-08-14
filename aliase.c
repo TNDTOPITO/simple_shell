@@ -9,9 +9,10 @@
  */
 int find_var_rev(char *var_name, char **arr)
 {
-	char **env = arr;
-	int i = 0, y = 0, match, index;
+	char **env = NULL;
+	int i = 0, y = 0, match = 0, index = 0;
 
+	env = arr;
 	if (!env)
 		return (-1);
 	for (i = 0; env[i]; i++)
@@ -52,17 +53,13 @@ void add_al(char *str)
 	string = _strcpy(string, str);
 	if (!aliase)
 	{
+		aliase = NULL;
 		aliase = malloc(sizeof(char *) * 3);
 		aliase[0] = string;
 		aliase[1] = NULL;
 		return;
 	}
-	while (str[i] != '=')
-		i++;
-	cpy = malloc(sizeof(char) * (i + 2));
-	cpy[0] = '\0';
-	cpy = strncpy(cpy, str, i);
-	cpy[i + 1] = '\0';
+	cpy = strdup(str);
 	i = find_var(cpy, aliase);
 	free(cpy);
 	if (i != -1)
@@ -75,6 +72,7 @@ void add_al(char *str)
 		while (aliase[index])
 			index++;
 		tempStr = malloc(sizeof(char *) * (index + 2));
+		tempStr[0][0] = '\0';
 		for (i = 0; aliase[i]; i++)
 			tempStr[i] = aliase[i];
 		tempStr[i] = string;
@@ -90,8 +88,10 @@ void add_al(char *str)
  */
 void print_al(char *str)
 {
-	int i = 0, index;
+	int i = 0, index = 0;
 
+	if (!aliase)
+		return;
 	i = find_var_rev(str, aliase);
 	if (i == -1)
 		i = find_var(str, aliase);
@@ -167,6 +167,11 @@ char *chk_str(char *token)
 	int i = 0;
 	char *temp = NULL;
 
+	for (i = 0; token[i]; i++)
+	{
+		if (token[i] == '=')
+			return (token);
+	}
 	i = find_var(token, aliase);
 	if (i == -1)
 		return (token);
