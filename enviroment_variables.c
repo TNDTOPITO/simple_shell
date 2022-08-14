@@ -83,14 +83,13 @@ void _unsetenv(char **argv)
 
 	if (!argv[1] || argv[1][0] == '\0')
 	{
-		print_env();
 		return;
 	}
 
 	index = find_var(argv[1], enviroment);
 	if (index == -1)
 	{
-		perror("name not found proof");
+		perror("name not found");
 		return;
 	}
 	free(enviroment[index]);
