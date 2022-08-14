@@ -119,11 +119,12 @@ char **tokenize(char *str, char *del, int len)
 	char **tokens = NULL, *token = NULL, *temp = NULL;
 	int i = 0;
 
-	tokens = malloc(sizeof(char *) * (len));
+	tokens = malloc(sizeof(char *) * (len + 3));
 	if (!tokens)
 		return (NULL);
 
 	str = remove_new_line(str);
+	putchar('\0');
 	temp = strdup(str);
 	token = strtok(temp, del);
 	
