@@ -174,6 +174,7 @@ char *chk_str(char *token)
 			temp = malloc(sizeof(char) * 5);
 			temp[0] = '\0';
 			sprintf(temp, "%d", exit_status);
+			free(token);
 			return (temp);
 		}
 		if (token[1] == '$')
@@ -181,6 +182,7 @@ char *chk_str(char *token)
 			temp = malloc(sizeof(char) * 1024);
 			temp[0] = '\0';
 			sprintf(temp,"%d", getpid());
+			free(token);
 			return (temp);
 		}
 		temp = token;
