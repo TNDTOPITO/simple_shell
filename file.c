@@ -93,11 +93,11 @@ char *_getenv(char *name)
 	int i = 0;
 	char *env_var = NULL;
 
-	while (environ[i])
+	while (enviroment[i])
 	{
-		if (_strncmp(name, environ[i], _strlen(name)) == 0)
+		if (_strncmp(name, enviroment[i], _strlen(name)) == 0)
 		{
-			env_var = strdup(environ[i]);
+			env_var = strdup(enviroment[i]);
 			while (*env_var != '=')
 				env_var++;
 

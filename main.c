@@ -20,7 +20,10 @@ void run(char *str)
 			if (argv[0] && access(argv[0], X_OK) == 0)
 				execute(argv[0], argv);
 			else
-				perror("./hsh");
+			{
+				exit_status = 127;
+				fprintf(stderr, "./hsh: 1: ls: not found\n");
+			}
 		}
 		frees_tokens(argv);
 	}

@@ -50,6 +50,8 @@ char *find(char *cname)
 		if (stat(cname, &sb) != 0 && cname[0] != '/')
 		{
 			env_path = _getenv("PATH");
+			if (!env_path)
+				return (NULL);
 			num_del = count_delims(env_path, ":") + 1;
 			p_tokns = tokenize(env_path, ":", num_del);
 
