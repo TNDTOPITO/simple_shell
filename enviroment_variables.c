@@ -92,7 +92,6 @@ void _unsetenv(char **argv)
 		return;
 	}
 	free(enviroment[index]);
-	enviroment[index] = NULL;
 	for (i = index; enviroment[i]; i++)
 		enviroment[i] = enviroment[i + 1];
 	enviroment[i] = NULL;
