@@ -124,7 +124,6 @@ char **tokenize(char *str, char *del, int len)
 		return (NULL);
 
 	str = remove_new_line(str);
-	putchar('\0');
 	temp = strdup(str);
 	token = strtok(temp, del);
 	
